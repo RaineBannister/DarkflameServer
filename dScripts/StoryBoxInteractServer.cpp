@@ -1,6 +1,7 @@
 #include "StoryBoxInteractServer.h"
 #include "Character.h"
 #include "GameMessages.h"
+#include "Game.h"
 #include "dServer.h"
 #include "AMFFormat.h"
 

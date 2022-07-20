@@ -1,9 +1,5 @@
 #include "AgLaserSensorServer.h"
 
-#include "PhantomPhysicsComponent.h"
-#include "SkillComponent.h"
-#include "EntityManager.h"
-#include "AgMonumentLaserServer.h"
 #include "EntityManager.h"
 
 void AgLaserSensorServer::OnStartup(Entity* self) {

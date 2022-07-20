@@ -1,4 +1,6 @@
 #include "NtXRayServer.h"
+#include "PhantomPhysicsComponent.h"
+#include "EntityManager.h"
 #include "SkillComponent.h"
 
 void NtXRayServer::OnCollisionPhantom(Entity* self, Entity* target) 

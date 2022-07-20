@@ -1,7 +1,6 @@
 #include "NpcNjAssistantServer.h"
 #include "GameMessages.h"
 #include "InventoryComponent.h"
-#include "MissionComponent.h"
 #include "Item.h"
 
 void NpcNjAssistantServer::OnMissionDialogueOK(Entity* self, Entity* target, int missionID, MissionState missionState) {

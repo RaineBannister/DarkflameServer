@@ -1,6 +1,5 @@
 #include "FvPassThroughWall.h"
 #include "InventoryComponent.h"
-#include "MissionComponent.h"
 
 void FvPassThroughWall::OnCollisionPhantom(Entity* self, Entity* target) {
     auto missionComponent = target->GetComponent<MissionComponent>();

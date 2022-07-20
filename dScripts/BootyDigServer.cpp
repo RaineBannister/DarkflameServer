@@ -1,8 +1,6 @@
 #include "BootyDigServer.h"
 #include "EntityManager.h"
 #include "RenderComponent.h"
-#include "MissionComponent.h"
-#include "MissionTaskType.h"
 
 void BootyDigServer::OnStartup(Entity *self) {
     auto* zoneControlObject = EntityManager::Instance()->GetZoneControlEntity();

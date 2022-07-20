@@ -3,9 +3,12 @@
 #include "Entity.h"
 #include "DestroyableComponent.h"
 #include "EntityManager.h"
+#include "dLogger.h"
 
 void GfBanana::SpawnBanana(Entity* self)
 {
+	Game::logger->Log("GfBanana", "Spawning banana\n");
+
 	auto position = self->GetPosition();
 	const auto rotation = self->GetRotation();
 	
@@ -41,6 +44,8 @@ void GfBanana::OnStartup(Entity* self)
 
 void GfBanana::OnHit(Entity* self, Entity* attacker)
 {
+	Game::logger->Log("GfBanana", "Spawning cluster\n");
+
 	auto* destroyable = self->GetComponent<DestroyableComponent>();
 
 	destroyable->SetHealth(9999);

@@ -1,4 +1,6 @@
 #include "AllCrateChicken.h"
+#include "dCommonVars.h"
+#include "EntityManager.h"
 #include "Entity.h"
 
 void AllCrateChicken::OnStartup(Entity* self) {

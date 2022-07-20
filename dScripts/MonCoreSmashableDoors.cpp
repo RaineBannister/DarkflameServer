@@ -1,5 +1,7 @@
 #include "MonCoreSmashableDoors.h"
+#include "GameMessages.h"
 #include "EntityManager.h"
+#include "dZoneManager.h"
 
 void MonCoreSmashableDoors::OnDie(Entity* self, Entity* killer) 
 {

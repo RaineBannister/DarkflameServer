@@ -1,8 +1,12 @@
 #pragma once
 #include "dCommonVars.h"
-#include "MissionState.h"
+#include "RakNetTypes.h"
 #include <string>
-#include <vector>
+#include "MissionComponent.h"
+#include "MissionState.h"
+#include "Game.h"
+#include "dLogger.h"
+#include "Loot.h"
 
 class User;
 class Entity;

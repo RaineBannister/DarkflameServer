@@ -1,4 +1,5 @@
 #include "GfJailWalls.h"
+#include "EntityManager.h"
 #include "dZoneManager.h"
 #include "GeneralUtils.h"
 

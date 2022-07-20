@@ -1,7 +1,8 @@
 #include "NsLegoClubDoor.h"
 #include "dZoneManager.h"
+#include "EntityManager.h"
+#include "GeneralUtils.h"
 #include "GameMessages.h"
-#include "AMFFormat.h"
 
 void NsLegoClubDoor::OnStartup(Entity* self) 
 {

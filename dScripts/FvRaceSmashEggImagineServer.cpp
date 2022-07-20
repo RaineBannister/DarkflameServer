@@ -1,10 +1,9 @@
-#include "FvRaceSmashEggImagineServer.h"
 #include "CharacterComponent.h"
 #include "DestroyableComponent.h"
 #include "EntityManager.h"
+#include "FvRaceSmashEggImagineServer.h"
 #include "PossessableComponent.h"
 #include "RacingTaskParam.h"
-#include "MissionComponent.h"
 
 void FvRaceSmashEggImagineServer::OnDie(Entity *self, Entity *killer) {
     if (killer != nullptr) {

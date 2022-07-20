@@ -3,7 +3,6 @@
 #include "PossessableComponent.h"
 #include "RaceSmashServer.h"
 #include "RacingTaskParam.h"
-#include "MissionComponent.h"
 
 void RaceSmashServer::OnDie(Entity *self, Entity *killer) {
     // Crate is smashed by the car

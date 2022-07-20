@@ -1,5 +1,6 @@
 #pragma once
 #include "CppScripts.h"
+#include "RenderComponent.h"
 
 class FvCandle : public CppScripts::Script 
 {

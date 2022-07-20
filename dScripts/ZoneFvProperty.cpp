@@ -1,5 +1,4 @@
 #include "ZoneFvProperty.h"
-#include "Entity.h"
 
 void ZoneFvProperty::SetGameVariables(Entity *self) {
     self->SetVar<std::string>(ClaimMarkerGroup, "Platform");

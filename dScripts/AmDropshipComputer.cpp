@@ -2,6 +2,7 @@
 #include "MissionComponent.h"
 #include "RebuildComponent.h"
 #include "InventoryComponent.h"
+#include "GameMessages.h"
 #include "dZoneManager.h"
 
 void AmDropshipComputer::OnStartup(Entity* self) 

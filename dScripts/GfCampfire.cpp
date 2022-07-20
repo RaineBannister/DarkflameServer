@@ -1,8 +1,11 @@
 #include "GfCampfire.h"
+#include "GameMessages.h"
+
 #include "RenderComponent.h"
 #include "SkillComponent.h"
 #include "MissionComponent.h"
 #include "RenderComponent.h"
+#include "ProximityMonitorComponent.h"
 #include "EntityManager.h"
 
 void GfCampfire::OnStartup(Entity* self) {

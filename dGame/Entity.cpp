@@ -109,11 +109,6 @@ Entity::~Entity() {
 
 		m_Components.erase(pair.first);
 	}
-
-	for (auto child : m_ChildEntities) {
-		if (child) child->RemoveParent();
-	}
-
 	if (m_ParentEntity) {
 		m_ParentEntity->RemoveChild(this);
 	}
@@ -182,18 +177,12 @@ void Entity::Initialize()
 		SimplePhysicsComponent* comp = new SimplePhysicsComponent(simplePhysicsComponentID, this);
 		m_Components.insert(std::make_pair(COMPONENT_TYPE_SIMPLE_PHYSICS, comp));
 
-		ModelComponent* modelcomp = new ModelComponent(this);
+		ModelComponent* modelcomp = new ModelComponent(0, this);
 		m_Components.insert(std::make_pair(COMPONENT_TYPE_MODEL, modelcomp));
 
 		RenderComponent* render = new RenderComponent(this);
 		m_Components.insert(std::make_pair(COMPONENT_TYPE_RENDER, render));
 
-		auto destroyableComponent = new DestroyableComponent(this);
-		destroyableComponent->SetHealth(1);
-		destroyableComponent->SetMaxHealth(1.0f);
-		destroyableComponent->SetFaction(-1, true);
-		destroyableComponent->SetIsSmashable(true);
-		m_Components.insert(std::make_pair(COMPONENT_TYPE_DESTROYABLE, destroyableComponent));
 		// We have all our components.
 		return; 
 	}
@@ -219,9 +208,8 @@ void Entity::Initialize()
 		m_Components.insert(std::make_pair(COMPONENT_TYPE_ZONE_CONTROL, nullptr));
 	}
 
-	uint32_t possessableComponentId = compRegistryTable->GetByIDAndType(m_TemplateID, COMPONENT_TYPE_POSSESSABLE);
-	if (possessableComponentId > 0) {
-		m_Components.insert(std::make_pair(COMPONENT_TYPE_POSSESSABLE, new PossessableComponent(this, possessableComponentId)));
+	if (compRegistryTable->GetByIDAndType(m_TemplateID, COMPONENT_TYPE_POSSESSABLE) > 0) {
+		m_Components.insert(std::make_pair(COMPONENT_TYPE_POSSESSABLE, new PossessableComponent(this)));
 	}
 
 	if (compRegistryTable->GetByIDAndType(m_TemplateID, COMPONENT_TYPE_MODULE_ASSEMBLY) > 0) {
@@ -230,6 +218,11 @@ void Entity::Initialize()
 
 	if (compRegistryTable->GetByIDAndType(m_TemplateID, COMPONENT_TYPE_RACING_STATS) > 0) {
 		m_Components.insert(std::make_pair(COMPONENT_TYPE_RACING_STATS, nullptr));
+	}
+
+	PetComponent* petComponent;
+	if (compRegistryTable->GetByIDAndType(m_TemplateID, COMPONENT_TYPE_ITEM) > 0 && !TryGetComponent(COMPONENT_TYPE_PET, petComponent)) {
+		m_Components.insert(std::make_pair(COMPONENT_TYPE_ITEM, nullptr));
 	}
 
 	if (compRegistryTable->GetByIDAndType(m_TemplateID, COMPONENT_TYPE_EXHIBIT, -1) >= 0) {
@@ -629,23 +622,6 @@ void Entity::Initialize()
 		m_Components.insert(std::make_pair(COMPONENT_TYPE_SCRIPTED_ACTIVITY, new ScriptedActivityComponent(this, scriptedActivityID)));
 	}
 
-    if (compRegistryTable->GetByIDAndType(m_TemplateID, COMPONENT_TYPE_MODEL, -1) != -1 && !GetComponent<PetComponent>()) {
-        m_Components.insert(std::make_pair(COMPONENT_TYPE_MODEL, new ModelComponent(this)));
-		if (m_Components.find(COMPONENT_TYPE_DESTROYABLE) == m_Components.end()) {
-			auto destroyableComponent = new DestroyableComponent(this);
-			destroyableComponent->SetHealth(1);
-			destroyableComponent->SetMaxHealth(1.0f);
-			destroyableComponent->SetFaction(-1, true);
-			destroyableComponent->SetIsSmashable(true);
-			m_Components.insert(std::make_pair(COMPONENT_TYPE_DESTROYABLE, destroyableComponent));
-		}
-    }
-
-	PetComponent* petComponent;
-	if (compRegistryTable->GetByIDAndType(m_TemplateID, COMPONENT_TYPE_ITEM) > 0 && !TryGetComponent(COMPONENT_TYPE_PET, petComponent) && !HasComponent(COMPONENT_TYPE_MODEL)) {
-		m_Components.insert(std::make_pair(COMPONENT_TYPE_ITEM, nullptr));
-	}
-
 	// Shooting gallery component
     if (compRegistryTable->GetByIDAndType(m_TemplateID, COMPONENT_TYPE_SHOOTING_GALLERY) > 0) {
         m_Components.insert(std::make_pair(COMPONENT_TYPE_SHOOTING_GALLERY, new ShootingGalleryComponent(this)));
@@ -894,8 +870,8 @@ void Entity::WriteBaseReplicaData(RakNet::BitStream* outBitStream, eReplicaPacke
 
 		const auto& syncLDF = GetVar<std::vector<std::u16string>>(u"syncLDF");
 
-		// Only sync for models.
-		if (m_Settings.size() > 0 && (GetComponent<ModelComponent>() && !GetComponent<PetComponent>())) {
+		//limiting it to lot 14 right now
+		if (m_Settings.size() > 0 && m_TemplateID == 14) {
 			outBitStream->Write1(); //ldf data
 			
 			RakNet::BitStream settingStream;
@@ -1188,23 +1164,23 @@ void Entity::WriteComponents(RakNet::BitStream* outBitStream, eReplicaPacketType
 		renderComponent->Serialize(outBitStream, bIsInitialUpdate, flags);
 	}
 
-	if (modelComponent) {
-		DestroyableComponent* destroyableComponent;
-		if (TryGetComponent(COMPONENT_TYPE_DESTROYABLE, destroyableComponent) && !destroyableSerialized) {
-			destroyableComponent->Serialize(outBitStream, bIsInitialUpdate, flags);
-			destroyableSerialized = true;
-		}
-	}
-
 	if (HasComponent(COMPONENT_TYPE_ZONE_CONTROL))
 	{
 		outBitStream->Write<uint32_t>(0x40000000);
 	}
 
 	// BBB Component, unused currently
-	// Need to to write0 so that is serialized correctly
+	// Need to to write0 so that is serlaizese correctly
 	// TODO: Implement BBB Component
 	outBitStream->Write0();
+
+	/*
+	if (m_Trigger != nullptr)
+	{
+		outBitStream->Write1();
+		outBitStream->Write(m_Trigger->id);
+	}
+	*/
 }
 
 void Entity::ResetFlags() {
@@ -1224,21 +1200,17 @@ void Entity::UpdateXMLDoc(tinyxml2::XMLDocument* doc) {
 }
 
 void Entity::Update(const float deltaTime) {
-	uint32_t timerPosition;
-	timerPosition = 0;
-	while (timerPosition < m_Timers.size()) {
-		m_Timers[timerPosition]->Update(deltaTime);
-		if (m_Timers[timerPosition]->GetTime() <= 0) {
-			const auto timerName = m_Timers[timerPosition]->GetName();
+	for (int i = 0; i < m_Timers.size(); i++) {
+		m_Timers[i]->Update(deltaTime);
+		if (m_Timers[i]->GetTime() <= 0) {
+			const auto timerName = m_Timers[i]->GetName();
 
-			delete m_Timers[timerPosition];
-			m_Timers.erase(m_Timers.begin() + timerPosition);
+			delete m_Timers[i];
+			m_Timers.erase(m_Timers.begin() + i);
 
 			for (CppScripts::Script* script : CppScripts::GetEntityScripts(this)) {
 				script->OnTimerDone(this, timerName);
 			}
-		} else {
-			timerPosition++;
 		}
 	}
 
@@ -1249,14 +1221,6 @@ void Entity::Update(const float deltaTime) {
 			delete m_CallbackTimers[i];
 			m_CallbackTimers.erase(m_CallbackTimers.begin() + i);
 		}
-	}
-	
-	// Add pending timers to the list of timers so they start next tick.
-	if (m_PendingTimers.size() > 0) {
-		for (auto namedTimer : m_PendingTimers) {
-			m_Timers.push_back(namedTimer);
-		}
-		m_PendingTimers.clear();
 	}
 
 	if (IsSleeping())
@@ -1685,24 +1649,18 @@ void Entity::AddChild(Entity* child) {
 
 void Entity::RemoveChild(Entity* child) {
 	if (!child) return;
-	uint32_t entityPosition = 0;
-	while (entityPosition < m_ChildEntities.size()) {
-		if (!m_ChildEntities[entityPosition] || (m_ChildEntities[entityPosition])->GetObjectID() == child->GetObjectID()) {
+	for (auto entity = m_ChildEntities.begin(); entity != m_ChildEntities.end(); entity++) {
+		if (*entity && (*entity)->GetObjectID() == child->GetObjectID()) {
 			m_IsParentChildDirty = true;
-			m_ChildEntities.erase(m_ChildEntities.begin() + entityPosition);
-		} else {
-			entityPosition++;
+			m_ChildEntities.erase(entity);
+			return;
 		}
 	}
 }
 
-void Entity::RemoveParent() {
-	this->m_ParentEntity = nullptr;
-}
-
 void Entity::AddTimer(std::string name, float time) {
 	EntityTimer* timer = new EntityTimer(name, time);
-	m_PendingTimers.push_back(timer);
+	m_Timers.push_back(timer);
 }
 
 void Entity::AddCallbackTimer(float time, std::function<void()> callback) {

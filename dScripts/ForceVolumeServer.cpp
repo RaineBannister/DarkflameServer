@@ -2,11 +2,17 @@
 #include "PhantomPhysicsComponent.h"
 #include "EntityManager.h"
 
+
 void ForceVolumeServer::OnStartup(Entity* self) 
 {
     auto* phantomPhysicsComponent = self->GetComponent<PhantomPhysicsComponent>();
     
-    if (phantomPhysicsComponent == nullptr) return;
+    if (phantomPhysicsComponent == nullptr)
+    {
+        Game::logger->Log("ForceVolumeServer", "Failed to find PhantomPhysicsComponent\n");
+
+        return;
+    }
 
     const auto forceAmount = self->GetVar<float>(u"ForceAmt");
     const auto forceX = self->GetVar<float>(u"ForceX");

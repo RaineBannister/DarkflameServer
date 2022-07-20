@@ -1,4 +1,5 @@
 #pragma once
+#include "CppScripts.h"
 
 class ChooseYourDestinationNsToNt
 {

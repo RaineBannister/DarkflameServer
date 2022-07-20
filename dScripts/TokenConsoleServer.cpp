@@ -1,7 +1,9 @@
 #include "TokenConsoleServer.h"
 #include "InventoryComponent.h"
+#include "Item.h"
 #include "GameMessages.h"
 #include "Character.h"
+#include "dCommonVars.h"
 
 //2021-05-03 - max - added script, omitted some parts related to inheritance in lua which we don't need
 

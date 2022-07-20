@@ -1,5 +1,7 @@
 #include "QbEnemyStunner.h"
+#include "EntityManager.h"
 #include "SkillComponent.h"
+#include "GameMessages.h"
 #include "DestroyableComponent.h"
 
 void QbEnemyStunner::OnRebuildComplete(Entity* self, Entity* target)

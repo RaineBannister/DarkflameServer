@@ -144,7 +144,6 @@ public:
 
 	void AddChild(Entity* child);
 	void RemoveChild(Entity* child);
-	void RemoveParent();
 	void AddTimer(std::string name, float time);
 	void AddCallbackTimer(float time, std::function<void()> callback);
 	bool HasTimer(const std::string& name);
@@ -310,7 +309,6 @@ protected:
     
     std::unordered_map<int32_t, Component*> m_Components; //The int is the ID of the component
 	std::vector<EntityTimer*> m_Timers;
-	std::vector<EntityTimer*> m_PendingTimers;
 	std::vector<EntityCallbackTimer*> m_CallbackTimers;
 
 	bool m_ShouldDestroyAfterUpdate = false;

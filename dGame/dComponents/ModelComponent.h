@@ -12,50 +12,51 @@ class Entity;
  */
 class ModelComponent : public Component {
 public:
-	static const uint32_t ComponentType = COMPONENT_TYPE_MODEL;
+    static const uint32_t ComponentType = COMPONENT_TYPE_MODEL;
 
-	ModelComponent(Entity* parent);
+    ModelComponent(uint32_t componentID, Entity* parent);
+    ~ModelComponent() override;
 
-	void Serialize(RakNet::BitStream* outBitStream, bool bIsInitialUpdate, unsigned int& flags);
+    void Serialize(RakNet::BitStream* outBitStream, bool bIsInitialUpdate, unsigned int& flags);
 
-	/**
-	 * Returns the original position of the model
-	 * @return the original position of the model
-	 */
-	const NiPoint3& GetPosition() { return m_OriginalPosition; }
+    /**
+     * Returns the position of the model
+     * @return the position of the model
+     */
+    NiPoint3& GetPosition() { return m_Position; }
 
-	/**
-	 * Sets the original position of the model
-	 * @param pos the original position to set
-	 */
-	void SetPosition(const NiPoint3& pos) { m_OriginalPosition = pos; }
+    /**
+     * Sets the position of the model
+     * @param pos the position to set
+     */
+    void SetPosition(const NiPoint3& pos) { m_Position = pos; }
 
-	/**
-	 * Returns the original rotation of the model
-	 * @return the original rotation of the model
-	 */
-	const NiQuaternion& GetRotation() { return m_OriginalRotation; }
+    /**
+     * Returns the rotation of the model
+     * @return the rotation of the model
+     */
+    NiQuaternion& GetRotation() { return m_Rotation; }
 
-	/**
-	 * Sets the original rotation of the model
-	 * @param rot the original rotation to set
-	 */
-	void SetRotation(const NiQuaternion& rot) { m_OriginalRotation = rot; }
+    /**
+     * Sets the rotation of the model
+     * @param rot the rotation to set
+     */
+    void SetRotation(const NiQuaternion& rot) { m_Rotation = rot; }
 
 private:
 
-	/**
-	 * The original position of the model
-	 */
-	NiPoint3 m_OriginalPosition;
+    /**
+     * The position of the model
+     */
+    NiPoint3 m_Position;
 
-	/**
-	 * The rotation original of the model
-	 */
-	NiQuaternion m_OriginalRotation;
+    /**
+     * The rotation of the model
+     */
+    NiQuaternion m_Rotation;
 
-	/**
-	 * The ID of the user that made the model
-	 */
-	LWOOBJID m_userModelID;
+    /**
+     * The ID of the user that made the model
+     */
+    LWOOBJID m_userModelID;
 };

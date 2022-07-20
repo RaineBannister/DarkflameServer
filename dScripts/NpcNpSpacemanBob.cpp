@@ -1,6 +1,10 @@
 #include "NpcNpSpacemanBob.h"
 #include "DestroyableComponent.h"
-#include "MissionComponent.h"
+#include "Entity.h"
+#include "GameMessages.h"
+#include "MissionState.h"
+#include "Game.h"
+#include "dLogger.h"
 
 void NpcNpSpacemanBob::OnMissionDialogueOK(Entity* self, Entity* target, int missionID, MissionState missionState)
 {

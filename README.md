@@ -31,6 +31,7 @@ Development of the latest iteration of Darkflame Universe has been done primaril
 ```bash
 git clone --recursive https://github.com/DarkflameUniverse/DarkflameServer
 ```
+
 **Python**
 
 Some tools utilized to streamline the setup process require Python 3, make sure you have it installed.
@@ -43,7 +44,7 @@ This was done make sure that older and incomplete clients wouldn't produce false
 If you're using a DLU client you'll have to go into the "CMakeVariables.txt" file and change the NET_VERSION variable to 171023 to match the modified client's version number.
 
 ### Linux builds
-Make sure packages like `gcc`, `cmake`, and `zlib` are installed. Depending on the distribution, these packages might already be installed. Note that on systems like Ubuntu, you will need the `zlib1g-dev` package so that the header files are available. `libssl-dev` will also be required as well as `openssl`.
+Make sure packages like `gcc`, `cmake`, and `zlib` are installed. Depending on the distribution, these packages might already be installed. Note that on systems like Ubuntu, you will need the `zlib1g-dev` package so that the header files are available.
 
 CMake must be version 3.14 or higher!
 
@@ -70,19 +71,22 @@ make
 ```
 
 ### MacOS builds
-Ensure `cmake`, `zlib` and `open ssl` are installed as well as a compiler (e.g `clang` or `gcc`).
 
-In the repository root folder run the following. Ensure -DOPENSSL_ROOT_DIR=/path/to/openssl points to your openssl install location
+**Download precompiled MySQL connector**
 ```bash
-# Create the build directory, preserving it if it already exists
-mkdir -p build
-cd build
+# Install required tools
+brew install boost mysql-connector-c++
 
-# Run CMake to generate build files
-cmake .. -DOPENSSL_ROOT_DIR=/path/to/openssl
+# Symlinks for finding the required modules
+sudo ln -s /usr/local/mysql-connector-c++/lib64/libmysqlcppconn.dylib /usr/local/mysql-connector-c++/lib64/libmysql.dylib 
+sudo ln -s /usr/local/mysql-connector-c++/lib64/libcrypto.1.1.dylib /usr/local/mysql/lib/libcrypto.1.1.dylib
+```
 
-# Get cmake to build the project. If make files are being used then using make and appending `-j` and the amount of cores to utilize may be preferable, for example `make -j8`
-cmake --build . --config Release
+Then follow the Linux build steps (gcc is not required), but before running `make`, run the following to make sure all the libs are available in the build folder:
+
+```bash
+sudo ln -s /usr/local/mysql-connector-c++/lib64/libssl.1.1.dylib /path/to/build/folder/libssl.1.1.dylib
+sudo ln -s /usr/local/mysql-connector-c++/lib64/libcrypto.1.1.dylib /path/to/build/folder/libcrypto.1.1.dylib
 ```
 
 ### Windows builds (native)
@@ -98,20 +102,10 @@ cd build
 cmake ..
 
 :: Run CMake with build flag to build
-cmake --build . --config Release
+cmake --build .
 ```
-**Windows for ARM** has not been tested but should build by doing the following
-```batch
-:: Create the build directory
-mkdir build
-cd build
 
-:: Run CMake to generate make files
-cmake .. -DMARIADB_BUILD_SOURCE=ON
-
-:: Run CMake with build flag to build
-cmake --build . --config Release
-```
+Once built you must also move all DLLs from `build/_deps/mysql-src/lib64` or else you encounter missing DLL errors
 
 ### Windows builds (WSL)
 This section will go through how to install [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) and building in a Linux environment under Windows. WSL requires Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11.
@@ -135,22 +129,14 @@ sudo apt install build-essential
 
 [**Follow the Linux instructions**](#linux-builds)
 
-### ARM builds
-AArch64 builds should work on linux and MacOS using their respective build steps. Windows ARM should build but it has not been tested
-
-### Updating your build
-To update your server to the latest version navigate to your cloned directory
-```bash
-cd /path/to/DarkflameServer
-```
-run the following commands to update to the latest changes
-```bash
-git pull
-git submodule update --init --recursive
-```
-now follow the build section for your system
-
 ## Setting up the environment
+
+### Database
+Darkflame Universe utilizes a MySQL/MariaDB database for account and character information.
+
+Initial setup can vary drastically based on which operating system or distribution you are running; there are instructions out there for most setups, follow those and come back here when you have a database up and running.
+* Create a database for Darkflame Universe to use
+* Run each SQL file in the order at which they appear [here](migrations/dlu/) on the database
 
 ### Resources
 
@@ -194,13 +180,6 @@ certutil -hashfile <file> SHA256
 * Use `fdb_to_sqlite.py` in lcdr's utilities on `res/cdclient.fdb` in the unpacked client to convert the client database to `cdclient.sqlite`
 * Move and rename `cdclient.sqlite` into `build/res/CDServer.sqlite`
 * Run each SQL file in the order at which they appear [here](migrations/cdserver/) on the SQLite database
-
-### Database
-Darkflame Universe utilizes a MySQL/MariaDB database for account and character information.
-
-Initial setup can vary drastically based on which operating system or distribution you are running; there are instructions out there for most setups, follow those and come back here when you have a database up and running.
-* Create a database for Darkflame Universe to use
-* Use the command `./MasterServer -m` to automatically run them.
 
 **Configuration**
 
@@ -417,11 +396,10 @@ Here is a summary of the commands available in-game. All commands are prefixed b
 </tbody>
 </table>
 
-# Credits
+## Credits
 ## Active Contributors
 * [EmosewaMC](https://github.com/EmosewaMC)
 * [Jettford](https://github.com/Jettford)
-* [Aaron K.](https://github.com/aronwk-aaron)
 
 ## DLU Team
 * [DarwinAnim8or](https://github.com/DarwinAnim8or)
@@ -430,6 +408,10 @@ Here is a summary of the commands available in-game. All commands are prefixed b
 * [averysumner](https://github.com/codeshaunted)
 * [Jon002](https://github.com/jaller200)
 * [Jonny](https://github.com/cuzitsjonny)
+* TheMachine
+* Matthew
+* [Raine](https://github.com/Rainebannister)
+* Bricknave
 
 ### Research and tools
 * [lcdr](https://github.com/lcdr)
@@ -441,14 +423,11 @@ Here is a summary of the commands available in-game. All commands are prefixed b
 ### Former contributors
 * TheMachine
 * Matthew
-* [Raine](https://github.com/Rainebannister)
+* Raine
 * Bricknave
 
-### Logo
-* Cole Peterson (BlasterBuilder)
-
-## Special thanks
+### Special thanks
 * humanoid24
 * pwjones1969
-* [Simon](https://github.com/SimonNitzsche)
+* BlasterBuilder for the logo
 * ALL OF THE NETDEVIL AND LEGO TEAMS!

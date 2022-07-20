@@ -1,6 +1,8 @@
 #pragma once
 #include "CppScripts.h"
+#include "ChooseYourDestinationNsToNt.h"
 #include "BaseConsoleTeleportServer.h"
+#include "AMFFormat.h"
 
 class AmConsoleTeleportServer : public CppScripts::Script, BaseConsoleTeleportServer
 {

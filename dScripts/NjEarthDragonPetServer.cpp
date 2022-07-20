@@ -1,5 +1,4 @@
 #include "NjEarthDragonPetServer.h"
-#include "Entity.h"
 
 void NjEarthDragonPetServer::SetVariables(Entity *self) {
     self->SetVar<LOT>(u"petLOT", 16210);

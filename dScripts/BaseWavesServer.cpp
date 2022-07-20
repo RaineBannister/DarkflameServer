@@ -4,8 +4,6 @@
 #include "EntityManager.h"
 #include "dZoneManager.h"
 #include "Player.h"
-#include "MissionTaskType.h"
-#include "MissionComponent.h"
 #include "Character.h"
 
 // Done

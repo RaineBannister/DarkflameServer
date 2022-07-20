@@ -1,5 +1,4 @@
 #include "SpawnShrakeServer.h"
-#include "Entity.h"
 
 void SpawnShrakeServer::SetVariables(Entity *self) {
     self->SetVar<LOT>(u"petLOT", 12434);

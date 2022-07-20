@@ -1,5 +1,4 @@
 #include "ZoneNsProperty.h"
-#include "Entity.h"
 
 void ZoneNsProperty::SetGameVariables(Entity *self) {
     self->SetVar<std::string>(ClaimMarkerGroup, "Rhino");

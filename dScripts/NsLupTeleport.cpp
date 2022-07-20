@@ -1,7 +1,8 @@
 #include "NsLupTeleport.h"
 #include "dZoneManager.h"
+#include "EntityManager.h"
+#include "GeneralUtils.h"
 #include "GameMessages.h"
-#include "AMFFormat.h"
 
 void NsLupTeleport::OnStartup(Entity* self) 
 {

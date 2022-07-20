@@ -1,5 +1,4 @@
 #include "FvBounceOverWall.h"
-#include "MissionComponent.h"
 
 void FvBounceOverWall::OnCollisionPhantom(Entity* self, Entity* target) {
     auto missionComponent = target->GetComponent<MissionComponent>();

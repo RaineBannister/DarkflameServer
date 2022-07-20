@@ -1,5 +1,8 @@
 #pragma once
 #include "CppScripts.h"
+#include "GameMessages.h"
+#include "EntityManager.h"
+#include "PhantomPhysicsComponent.h"
 
 class AgFans : public CppScripts::Script
 {

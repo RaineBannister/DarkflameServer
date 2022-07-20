@@ -1,5 +1,6 @@
 #include "BuccaneerValiantShip.h"
 #include "SkillComponent.h"
+#include "dLogger.h"
 
 void BuccaneerValiantShip::OnStartup(Entity* self) {
     self->AddCallbackTimer(1.0F, [self]() {

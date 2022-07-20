@@ -43,10 +43,8 @@ void MasterPackets::SendZoneCreatePrivate(dServer* server, uint32_t zoneID, uint
 	bitStream.Write(zoneID);
 	bitStream.Write(cloneID);
 
-	bitStream.Write<uint32_t>(password.size());
-	for (auto character : password) {
-		bitStream.Write<char>(character);
-	}
+	RakNet::RakString passwd(password.c_str());
+	bitStream.Write(passwd);
 
 	server->SendToMaster(&bitStream);
 }
@@ -58,10 +56,8 @@ void MasterPackets::SendZoneRequestPrivate(dServer* server, uint64_t requestID, 
 	bitStream.Write(requestID);
 	bitStream.Write(static_cast<uint8_t>(mythranShift));
 
-	bitStream.Write<uint32_t>(password.size());
-	for (auto character : password) {
-		bitStream.Write<char>(character);
-	}
+	RakNet::RakString passwd(password.c_str());
+	bitStream.Write(passwd);
 
 	server->SendToMaster(&bitStream);
 }

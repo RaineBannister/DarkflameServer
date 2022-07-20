@@ -1,6 +1,4 @@
 #include "FountainOfImagination.h"
-#include "dCommonVars.h"
-#include "Entity.h"
 
 void FountainOfImagination::OnStartup(Entity *self) {
     self->SetVar<uint32_t>(u"numCycles", 6);

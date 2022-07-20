@@ -1,6 +1,5 @@
 #include "AmConsoleTeleportServer.h"
-#include "ChooseYourDestinationNsToNt.h"
-#include "AMFFormat.h"
+
 
 void AmConsoleTeleportServer::OnStartup(Entity* self) 
 {

@@ -2,6 +2,7 @@
 #include "MovingPlatformComponent.h"
 #include "GameMessages.h"
 
+
 void FallingTile::OnStartup(Entity* self) 
 {
     auto* movingPlatfromComponent = self->GetComponent<MovingPlatformComponent>();

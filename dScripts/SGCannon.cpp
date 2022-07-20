@@ -9,8 +9,8 @@
 #include "CharacterComponent.h"
 #include "SimplePhysicsComponent.h"
 #include "MovementAIComponent.h"
+#include "ControllablePhysicsComponent.h"
 #include "../dWorldServer/ObjectIDManager.h"
-#include "MissionComponent.h"
 
 void SGCannon::OnStartup(Entity *self) {
     Game::logger->Log("SGCannon", "OnStartup\n");
@@ -95,6 +95,14 @@ void SGCannon::OnActivityStateChangeRequest(Entity *self, LWOOBJID senderID, int
                 Game::logger->Log("SGCannon", "Shooting gallery component is null\n");
             }
             
+            auto* possessorComponent = player->GetComponent<PossessorComponent>();
+
+            /*if (possessorComponent != nullptr) {
+                possessorComponent->SetPossessable(self->GetObjectID());
+
+                EntityManager::Instance()->SerializeEntity(player);
+            }*/
+
             auto* characterComponent = player->GetComponent<CharacterComponent>();
 
             if (characterComponent != nullptr) {
@@ -103,7 +111,7 @@ void SGCannon::OnActivityStateChangeRequest(Entity *self, LWOOBJID senderID, int
                 auto possessor = player->GetComponent<PossessorComponent>();
                 if(possessor) {
                     possessor->SetPossessable(self->GetObjectID());
-                    possessor->SetPossessableType(ePossessionType::NO_POSSESSION);
+                    possessor->SetPossessableType(0);
                 }
 
                 EntityManager::Instance()->SerializeEntity(player);

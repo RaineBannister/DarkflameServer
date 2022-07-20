@@ -1,5 +1,4 @@
 #include "NsJohnnyMissionServer.h"
-#include "MissionComponent.h"
 
 void NsJohnnyMissionServer::OnMissionDialogueOK(Entity *self, Entity *target, int missionID, MissionState missionState) {
     if (missionID == 773 && missionState <= MissionState::MISSION_STATE_ACTIVE) {

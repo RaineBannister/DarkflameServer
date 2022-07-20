@@ -1,4 +1,6 @@
 #include "MonCoreNookDoors.h"
+#include "GameMessages.h"
+#include "EntityManager.h"
 #include "dZoneManager.h"
 
 void MonCoreNookDoors::OnStartup(Entity* self) 

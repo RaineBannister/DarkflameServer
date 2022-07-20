@@ -1,4 +1,5 @@
 #pragma once
+#include "CppScripts.h"
 #include "BasePropertyServer.h"
 
 class ZoneAgProperty : public BasePropertyServer {

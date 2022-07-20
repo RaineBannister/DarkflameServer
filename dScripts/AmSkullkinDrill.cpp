@@ -87,6 +87,8 @@ void AmSkullkinDrill::TriggerDrill(Entity* self)
 
     if (standObj != nullptr)
     {
+        Game::logger->Log("AmSkullkinDrill", "Disabling knockback\n");
+
         standObj->SetVar(u"bActive", false);
     }
 
@@ -211,6 +213,8 @@ void AmSkullkinDrill::OnArrived(Entity* self, uint32_t waypointIndex)
 
         if (standObj != nullptr)
         {
+            Game::logger->Log("AmSkullkinDrill", "Disabling knockback\n");
+
             standObj->SetVar(u"bActive", false);
         }
 
@@ -298,6 +302,8 @@ void AmSkullkinDrill::OnHitOrHealResult(Entity* self, Entity* attacker, int32_t 
 
 void AmSkullkinDrill::OnTimerDone(Entity* self, std::string timerName) 
 {
+    Game::logger->Log("AmSkullkinDrill", "Timer: %s\n", timerName.c_str());
+
     if (timerName == "killDrill")
     {
         const auto childID = self->GetVar<LWOOBJID>(u"ChildSmash");
@@ -317,6 +323,8 @@ void AmSkullkinDrill::OnTimerDone(Entity* self, std::string timerName)
 
         if (standObj != nullptr)
         {
+            Game::logger->Log("AmSkullkinDrill", "Enabling knockback\n");
+
             standObj->SetVar(u"bActive", true);
         }
 
@@ -343,6 +351,8 @@ void AmSkullkinDrill::OnTimerDone(Entity* self, std::string timerName)
     {
         const auto& animName = data[1];
 
+        Game::logger->Log("AmSkullkinDrill", "Anim done: %s\n", animName.c_str());
+
         const auto playerID = self->GetVar<LWOOBJID>(u"userID");
 
         auto* player = EntityManager::Instance()->GetEntity(playerID);
@@ -354,6 +364,8 @@ void AmSkullkinDrill::OnTimerDone(Entity* self, std::string timerName)
 
         if (animName == "spinjitzu-staff-windup")
         {
+            Game::logger->Log("AmSkullkinDrill", "Triggering drill\n");
+
             TriggerDrill(self);
 
             GameMessages::SendPlayAnimation(player, u"spinjitzu-staff-loop");

@@ -1,6 +1,5 @@
 #include "FvCandle.h"
 #include "MissionComponent.h"
-#include "RenderComponent.h"
 
 std::vector<int32_t> FvCandle::m_Missions = {850, 1431, 1529, 1566, 1603};
 

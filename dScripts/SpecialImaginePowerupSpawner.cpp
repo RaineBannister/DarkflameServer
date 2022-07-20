@@ -5,6 +5,7 @@
 #include "DestroyableComponent.h"
 #include "EntityManager.h"
 
+
 void SpecialImaginePowerupSpawner::OnStartup(Entity* self)
 {
 	self->SetProximityRadius(1.5f, "powerupEnter");

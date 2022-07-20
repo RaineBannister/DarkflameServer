@@ -1,4 +1,6 @@
 #include "AgTurret.h"
+#include "EntityManager.h"
+#include "RebuildComponent.h"
 #include "GameMessages.h"
 
 void AgTurret::OnStartup(Entity* self) {

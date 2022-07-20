@@ -1,5 +1,6 @@
 #include "ScriptedPowerupSpawner.h"
 #include "RenderComponent.h"
+#include "GameMessages.h"
 #include "EntityManager.h"
 
 void ScriptedPowerupSpawner::OnTemplateStartup(Entity *self) {

@@ -1,5 +1,4 @@
 #include "SpawnSaberCatServer.h"
-#include "Entity.h"
 
 void SpawnSaberCatServer::SetVariables(Entity *self) {
     self->SetVar<LOT>(u"petLOT", 12432);

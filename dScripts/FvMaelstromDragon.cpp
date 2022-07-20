@@ -2,6 +2,7 @@
 #include "EntityManager.h"
 #include "SkillComponent.h"
 #include "BaseCombatAIComponent.h"
+#include "RenderComponent.h"
 #include "DestroyableComponent.h"
 
 void FvMaelstromDragon::OnStartup(Entity* self) 

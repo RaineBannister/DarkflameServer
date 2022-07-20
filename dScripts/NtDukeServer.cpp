@@ -1,6 +1,5 @@
 #include "NtDukeServer.h"
 #include "InventoryComponent.h"
-#include "MissionComponent.h"
 
 void NtDukeServer::SetVariables(Entity *self) {
     self->SetVar<float_t>(m_SpyProximityVariable, 35.0f);

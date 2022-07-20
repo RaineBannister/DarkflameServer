@@ -1,5 +1,6 @@
 #include "NsModularBuild.h"
-#include "MissionComponent.h"
+#include "EntityManager.h"
+#include "Character.h"
 
 void NsModularBuild::OnModularBuildExit(Entity* self, Entity* player, bool bCompleted, std::vector<LOT> modules) {
 	if (bCompleted) {

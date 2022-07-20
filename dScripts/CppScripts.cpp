@@ -4,8 +4,10 @@
 
 #include "CppScripts.h"
 #include "GameMessages.h"
+#include "dpWorld.h"
 #include "Entity.h"
 #include "ScriptComponent.h"
+#include "EntityManager.h"
 #include "Game.h"
 #include "dLogger.h"
 #include "InvalidScript.h"

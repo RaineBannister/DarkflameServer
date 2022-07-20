@@ -1,7 +1,6 @@
 #include "DLUVanityNPC.h"
 #include "GameMessages.h"
 #include "dServer.h"
-#include "VanityUtilities.h"
 
 void DLUVanityNPC::OnStartup(Entity* self) 
 {

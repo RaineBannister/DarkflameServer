@@ -1,6 +1,7 @@
 #include "MastTeleport.h"
 #include "EntityManager.h"
 #include "GameMessages.h"
+#include "Game.h"
 #include "Preconditions.h"
 
 #ifdef _WIN32

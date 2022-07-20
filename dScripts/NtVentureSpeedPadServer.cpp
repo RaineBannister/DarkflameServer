@@ -2,6 +2,7 @@
 #include "SkillComponent.h"
 #include "MissionComponent.h"
 
+
 void NtVentureSpeedPadServer::OnStartup(Entity* self)
 {
     self->SetProximityRadius(3, "speedboost");

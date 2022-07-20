@@ -1,14 +1,15 @@
-#include "NjMonastryBossInstance.h"
+#include <algorithm>
 #include "RebuildComponent.h"
+#include "NjMonastryBossInstance.h"
 #include "DestroyableComponent.h"
 #include "EntityManager.h"
+#include "GameMessages.h"
 #include "dZoneManager.h"
 #include "GameMessages.h"
 #include "BaseCombatAIComponent.h"
 #include "BuffComponent.h"
 #include "SkillComponent.h"
 #include "TeamManager.h"
-#include <algorithm>
 
 // // // // // // //
 // Event handling //

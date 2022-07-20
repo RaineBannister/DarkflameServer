@@ -1,5 +1,6 @@
 #include "SsModularBuildServer.h"
-#include "MissionComponent.h"
+#include "EntityManager.h"
+#include "Character.h"
 
 void SsModularBuildServer::OnModularBuildExit(Entity* self, Entity* player, bool bCompleted, std::vector<LOT> modules) {
 	int missionNum = 1732;

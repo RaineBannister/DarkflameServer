@@ -1,5 +1,6 @@
 #pragma once
 #include "ActivityManager.h"
+#include "CppScripts.h"
 
 /**
  * State for each active game

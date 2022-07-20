@@ -1,6 +1,7 @@
-#include "dZoneManager.h"
+#include <dZoneManager.h>
 #include "PetDigServer.h"
 #include "MissionComponent.h"
+#include "InventoryComponent.h"
 #include "EntityManager.h"
 #include "Character.h"
 #include "PetComponent.h"

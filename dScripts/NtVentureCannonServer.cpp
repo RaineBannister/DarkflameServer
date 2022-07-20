@@ -2,6 +2,7 @@
 #include "GameMessages.h"
 #include "EntityManager.h"
 
+
 void NtVentureCannonServer::OnUse(Entity* self, Entity* user) 
 {
     auto* player = user;

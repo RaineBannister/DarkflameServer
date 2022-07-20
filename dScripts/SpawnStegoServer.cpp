@@ -1,5 +1,4 @@
 #include "SpawnStegoServer.h"
-#include "Entity.h"
 
 void SpawnStegoServer::SetVariables(Entity *self) {
     self->SetVar<LOT>(u"petLOT", 12431);

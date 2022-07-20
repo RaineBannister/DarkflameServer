@@ -1,6 +1,8 @@
 #include "WishingWellServer.h"
+#include "Loot.h"
 #include "ScriptedActivityComponent.h"
 #include "GameMessages.h"
+#include "Game.h"
 
 void WishingWellServer::OnStartup(Entity* self)
 {

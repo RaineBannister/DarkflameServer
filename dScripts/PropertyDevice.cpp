@@ -1,7 +1,6 @@
 #include "PropertyDevice.h"
 #include "GameMessages.h"
 #include "EntityManager.h"
-#include "MissionComponent.h"
 
 void PropertyDevice::OnStartup(Entity *self) {
     auto* zoneControl = EntityManager::Instance()->GetZoneControlEntity();

@@ -1,5 +1,5 @@
 #include "NpcCowboyServer.h"
-#include "MissionState.h"
+#include "MissionComponent.h"
 #include "InventoryComponent.h"
 
 void NpcCowboyServer::OnMissionDialogueOK(Entity* self, Entity* target, int missionID, MissionState missionState) 

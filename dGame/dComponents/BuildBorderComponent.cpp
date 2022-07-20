@@ -42,8 +42,6 @@ void BuildBorderComponent::OnUse(Entity* originator) {
 			return;
 		}
 
-		inventoryComponent->PushEquippedItems();
-
 		Game::logger->Log("BuildBorderComponent", "Starting with %llu\n", buildArea);
 
 		if (PropertyManagementComponent::Instance() != nullptr) {

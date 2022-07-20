@@ -1,5 +1,4 @@
 #include "Sunflower.h"
-#include "Entity.h"
 
 void Sunflower::OnStartup(Entity *self) {
     self->SetVar<uint32_t>(u"numCycles", 6);

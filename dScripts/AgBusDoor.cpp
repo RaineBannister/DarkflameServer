@@ -1,6 +1,8 @@
 #include "AgBusDoor.h"
 #include "Entity.h"
 #include "GameMessages.h"
+#include "Game.h"
+#include "dLogger.h"
 #include "ProximityMonitorComponent.h"
 
 void AgBusDoor::OnStartup(Entity* self) {

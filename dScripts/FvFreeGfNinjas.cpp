@@ -1,6 +1,5 @@
 #include "FvFreeGfNinjas.h"
 #include "Character.h"
-#include "MissionComponent.h"
 
 void FvFreeGfNinjas::OnMissionDialogueOK(Entity *self, Entity *target, int missionID, MissionState missionState) {
     if (missionID == 705 && missionState == MissionState::MISSION_STATE_AVAILABLE) {

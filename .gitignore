@@ -120,5 +120,3 @@ thirdparty/zlib-1.2.11/
 docker/__pycache__
 
 docker-compose.override.yml
-
-!/tests/TestBitStreams/*.bin

@@ -1,5 +1,6 @@
 #include "NsTokenConsoleServer.h"
 #include "InventoryComponent.h"
+#include "EntityManager.h"
 #include "GameMessages.h"
 #include "Character.h"
 #include "MissionComponent.h"
